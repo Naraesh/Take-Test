@@ -30,7 +30,7 @@ def log_in(request):
                     return render(request,'exam.html')
                 else:
                     login(request,user)
-                    return render(request,'addquestions.html')
+                    return render(request,'taketest.html')
         else:   
             return redirect('/')
 def log_out(request):

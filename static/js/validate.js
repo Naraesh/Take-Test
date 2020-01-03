@@ -1,6 +1,3 @@
-/**
- * Created by naveen sai kiran on 01-08-2016.
- */
 $(document).ready(function(){
    $("#register_form").submit(function(e){
        e.preventDefault();
