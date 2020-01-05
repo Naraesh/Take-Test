@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Exam,Question
@@ -15,7 +16,8 @@ def exam(request):
     return render(request,'exam.html',{'context':context})
 
 def adexam(request):
-    return render(request,'addquestion.html')
+    con=Exam.objects.all()
+    return render(request,'addquestion.html',{'con':con})
 
 def create_user(request):
     if request.method == 'POST':
@@ -33,7 +35,7 @@ def log_in(request):
             if user.is_active:
                 if username=='admin':
                     login(request,user)
-                    return redirect('exam')
+                    return redirect('xam')
                 else:
                     login(request,user)
                     return render(request,'taketest.html')
@@ -52,7 +54,7 @@ def add_exam(request):
         exam.name = exam_name
         exam.user = User.objects.get(pk=user)
         exam.save()      
-        return redirect('exam')
+        return redirect('xam')
 
 @login_required()
 def add_question(request):
@@ -63,7 +65,6 @@ def add_question(request):
         option3 = request.POST.get("option3")
         option4 = request.POST.get("option4")
         answer = request.POST.get("answer")
-        exam = request.POST.get("exam")
         q = Question()
         q.question = question
         q.option1 = option1
@@ -71,9 +72,12 @@ def add_question(request):
         q.option3 = option3
         q.option4 = option4
         q.answer = answer
-        q.exam = Exam.objects.get(pk=int(exam))
+        q.exam= Exam.objects.get(id=str(id))
         q.save()
-        return render(request,'exam.html')
+        return render(request,'addquestion.html')
+    else:
+        return HttpResponse('failed')
+
 class QuestionViewset(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerialzer
