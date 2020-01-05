@@ -15,8 +15,8 @@ def exam(request):
     context=Exam.objects.all()
     return render(request,'exam.html',{'context':context})
 
-def adexam(request):
-    con=Exam.objects.all()
+def edit(request, id):
+    con=Exam.objects.get(id=id)
     return render(request,'addquestion.html',{'con':con})
 
 def create_user(request):
@@ -56,9 +56,9 @@ def add_exam(request):
         exam.save()      
         return redirect('xam')
 
-@login_required()
-def add_question(request):
+def add_question(request,pk):
     if request.method == "POST":
+        xam = Exam.objects.get(pk=id)
         question  = request.POST.get("question")
         option1 = request.POST.get("option1")
         option2 = request.POST.get("option2")
@@ -72,7 +72,7 @@ def add_question(request):
         q.option3 = option3
         q.option4 = option4
         q.answer = answer
-        q.exam= Exam.objects.get(id=str(id))
+        q.exam = xam
         q.save()
         return render(request,'addquestion.html')
     else:

@@ -8,13 +8,13 @@ router.register('exam',views.ExamViewset)
 
 urlpatterns=[
     path('',views.index,name='index'),
-    path('adexam/',views.adexam,name="addexam"),
+    path('edit/<int:id>',views.edit,name="edit"),
     path('exam/',views.exam,name="xam"),
     path('create/',views.create_user,name="create_user"),
     path('login/',views.log_in,name="log_in"),
     path('logout/',views.log_out,name="log_out"),
     path('examname/',views.add_exam,name="add_exam"),
     path('api',include(router.urls)),
-    path('addquestion/',views.add_question,name="add_question"),
+    path('addquestion/<int:pk>',views.add_question,name="add_question"),
 
 ]

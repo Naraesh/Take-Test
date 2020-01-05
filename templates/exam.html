@@ -65,7 +65,7 @@
         <div class="panel panel-default col-sm-2 col-sm-offset-5">
             <div class="panel-bdy">
             {% for i in context %}
-                <a  style="padding:5px;color:aliceblue;" href="{% url 'addexam' %}"><button  class="btn btn-primary btn-lg btn-block" >{{i.name}} <span class="glyphicon glyphicon-plus"></span></button></a> 
+                <a  style="padding:5px;color:aliceblue;" href="{% url 'edit' i.id %}"><button  class="btn btn-primary btn-lg btn-block" >{{i.name}} <span class="glyphicon glyphicon-plus"></span></button></a> 
             {% endfor%}           
             </div>
         </div>

@@ -43,7 +43,7 @@
     <div id="read-questions">
         <span class="row"></span>
         <div class="row question">
-            <form action="{% url 'add_question'%}" method="POST" name="question-form" id="question-form">
+            <form method="POST" action="/addquestion/{{i.id}}" name="question-form" id="question-form">
                 {% csrf_token %}
 			<div class="panel panel-default col-sm-8 col-sm-offset-2">
 				<div class="panel-heading h2">
@@ -60,13 +60,11 @@
                 <div class="panel-footer">
                     <span class="col-sm-offset-2"><input type="text" class="form-control" name="answer" placeholder="answer"/></span>
                 </div>
-                
-                <button class="btn btn-default center-block" type="submit"><span class="glyphicon glyphicon-forward" id="icon-span"></span></button>
+                <button class="btn btn-default center-block" type="submit">Add question <span class="glyphicon glyphicon-forward" id="icon-span"></span></button>
 			</div>
             </form>
 		</div>
     </div>
-    
     <script src="{% static 'js/jquery.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/validate.js' %}"></script>
