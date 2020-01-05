@@ -8,6 +8,8 @@ router.register('exam',views.ExamViewset)
 
 urlpatterns=[
     path('',views.index,name='index'),
+    path('adexam/',views.add_exam,name="addexam"),
+    path('exam/',views.exam,name="exam"),
     path('create/',views.create_user,name="create_user"),
     path('login/',views.log_in,name="log_in"),
     path('logout/',views.log_out,name="log_out"),

@@ -10,6 +10,12 @@ from .serializer import QuestionSerialzer, ExamSerializer
 # Create your views here.
 def index(request):
     return render(request,'index.html')
+def exam(request):
+    context=Exam.objects.all()
+    return render(request,'exam.html',{'context':context})
+
+def adexam(request):
+    return render(request,'addquestion.html')
 
 def create_user(request):
     if request.method == 'POST':
@@ -27,7 +33,7 @@ def log_in(request):
             if user.is_active:
                 if username=='admin':
                     login(request,user)
-                    return render(request,'exam.html')
+                    return redirect('exam')
                 else:
                     login(request,user)
                     return render(request,'taketest.html')
@@ -45,8 +51,8 @@ def add_exam(request):
         exam = Exam()
         exam.name = exam_name
         exam.user = User.objects.get(pk=user)
-        exam.save()
-        return render(request,'exam.html')
+        exam.save()      
+        return redirect('exam')
 
 @login_required()
 def add_question(request):

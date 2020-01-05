@@ -60,43 +60,18 @@
             </div>
         </div>
     </div>
-    <div id="add_questions" style="display:none">
-        <span class="row"></span>
-        <div class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-                <input type="number" id="question-no" class="form-control" placeholder="Number Of Questions">
+   <div >
+    <a href="#" class="add_exam">
+        <div class="panel panel-default col-sm-2 col-sm-offset-5">
+            <div class="panel-bdy">
+            {% for i in context %}
+                <a  style="padding:5px;color:aliceblue;" href="{% url 'addexam'%}"><button  class="btn btn-primary btn-lg btn-block" >{{i.name}} <span class="glyphicon glyphicon-plus"></span></button></a> 
+            {% endfor%}  
             </div>
         </div>
-        <div class="row">
-            <button class="btn btn-default btn-lg center-block" id="num-question-btn"><span class="glyphicon glyphicon-menu-down"></span></button>
-        </div>
-    </div>
-    <div id="read-questions" style="display:none">
-        <span class="row"></span>
-        <div class="row question">
-            <form action="{% url 'add_question' %}" method="POST">
-                {% csrf_token %}
-			<div class="panel panel-default col-sm-8 col-sm-offset-2">
-				<div class="panel-heading h2">
-					<input type="text" name="question" class="form-control" placeholder="Question"/>
-				</div>
-				<div class="panel-body">
-					<ul class="list-group">
-						<li class="list-group-item"><span class="col-sm-offset-2"><input type="text" placeholder="1" class="form-control"  name="option1"/></span></li>
-						<li class="list-group-item"><span class="col-sm-offset-2"><input type="text" placeholder="2" class="form-control" name="option2" /></span></li>
-						<li class="list-group-item"><span class="col-sm-offset-2"><input type="text" placeholder="3" class="form-control" name="option3" /></span></li>
-						<li class="list-group-item"><span class="col-sm-offset-2"><input type="text" placeholder="4" class="form-control" name="option4" /></span></li>
-					</ul>
-				</div>
-                <div class="panel-footer">
-                    <span class="col-sm-offset-2"><input type="text" class="form-control" name="answer" placeholder="answer"/></span>
-                </div>
-                <button class="btn btn-default center-block" type="submit"><span class="glyphicon glyphicon-forward" id="icon-span"></span></button>
-			</div>
-            </form>
-		</div>
-    </div>
-    
+    </a> 
+   </div>
+  
     
 </body>
 <script src="{% static 'js/jquery.min.js'%}"></script>
