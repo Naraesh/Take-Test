@@ -21,29 +21,19 @@
         <span class="logo navbar-brand pull-left">
             Quiz !t
         </span>
-                <span class="col-sm-offset-4">
-                    <span class="glyphicon glyphicon-user"></span>
-                    <span>{{user.username }}</span>
+        <span style="color:pink;font-family:cursive;" class="col-sm-offset-4" >
+            <span class="glyphicon glyphicon-user"></span>
+            <span >{{user.username }}</span>
+        </span>
                     <a href="{% url 'log_out'%}" id="log-out" style="text-decoration: none;color:white">log out</a>
-                </span>
+  
                 <span class="col-sm-4"></span>
         </div>
     </nav>
-    <div id="add_questions">
-        <span class="row"></span>
-        <div class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-                <input type="number" id="question-no" class="form-control" placeholder="Number Of Questions">
-            </div>
-        </div>
-        <div class="row">
-            <button class="btn btn-default btn-lg center-block" id="num-question-btn"><span class="glyphicon glyphicon-menu-down"></span></button>
-        </div>
-    </div>
     <div id="read-questions">
         <span class="row"></span>
         <div class="row question">
-            <form method="POST" action="/addquestion/{{i.id}}" name="question-form" id="question-form">
+            <form method="POST" action="/addquestion/{{con.id}}" name="question-form" id="question-form">
                 {% csrf_token %}
 			<div class="panel panel-default col-sm-8 col-sm-offset-2">
 				<div class="panel-heading h2">
@@ -60,6 +50,7 @@
                 <div class="panel-footer">
                     <span class="col-sm-offset-2"><input type="text" class="form-control" name="answer" placeholder="answer"/></span>
                 </div>
+                <input type="hidden" class="form-control" name="exam" value="{{ con.id }}" />
                 <button class="btn btn-default center-block" type="submit">Add question <span class="glyphicon glyphicon-forward" id="icon-span"></span></button>
 			</div>
             </form>
@@ -84,6 +75,8 @@
                 $("#exam_list").append(template(data[i].id,data[i].name));
             }
         });
+
+         
     </script>
 </body>
 </html>

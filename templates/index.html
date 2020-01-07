@@ -13,16 +13,16 @@
     <span class="logo navbar-brand pull-left">
         Quiz !t
     </span>
-    <span class="pull-right">
-        <form action="{% url 'log_in'%}" method="POST">
-            {% csrf_token %}
-            <input class="form-control" type="text" name="username" placeholder="User name"/>
-            <input class="form-control" type="password" name="password" placeholder="Password"/>
-            <input class="btn btn-primary" type="submit" name="log_in" value="log in" id="login_button">
-        </form>
-    </span>
     </div>
 </nav>
+<span class="pull-right">
+    <form action="{% url 'log_in'%}" method="POST">
+        {% csrf_token %}
+        <input class="form-control" type="text" name="username" placeholder="User name"/>
+        <input class="form-control" type="password" name="password" placeholder="Password"/>
+        <input class="btn btn-primary" type="submit" name="log_in" value="log in" id="login_button">
+    </form>
+</span>
 <div id="bottom">
     <div id="load_signup">
         <button class="btn btn-primary center-block" data-toggle="modal" data-target="#modal1">Sign Up</button>

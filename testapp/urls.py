@@ -15,6 +15,8 @@ urlpatterns=[
     path('logout/',views.log_out,name="log_out"),
     path('examname/',views.add_exam,name="add_exam"),
     path('api',include(router.urls)),
-    path('addquestion/<int:pk>',views.add_question,name="add_question"),
+    path('taketest/',views.taketest,name="taketest"),
+    path('writeexam/<int:id>',views.writeexam,name="writeexam"),
+    path('addquestion/<int:id>',views.add_question,name="adquestion")
 
 ]

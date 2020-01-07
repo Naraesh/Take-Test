@@ -14,10 +14,15 @@ def index(request):
 def exam(request):
     context=Exam.objects.all()
     return render(request,'exam.html',{'context':context})
-
+def taketest(request):
+    cot=Exam.objects.all()
+    return render(request,'taketest.html',{'cot':cot})
 def edit(request, id):
     con=Exam.objects.get(id=id)
     return render(request,'addquestion.html',{'con':con})
+def writeexam(request,id):
+    con=Question.objects.filter(exam_id=id)
+    return render(request,'writeexam.html',{'con':con})
 
 def create_user(request):
     if request.method == 'POST':
@@ -38,7 +43,7 @@ def log_in(request):
                     return redirect('xam')
                 else:
                     login(request,user)
-                    return render(request,'taketest.html')
+                    return redirect('taketest')
         else:   
             return redirect('/')
 def log_out(request):
@@ -55,16 +60,16 @@ def add_exam(request):
         exam.user = User.objects.get(pk=user)
         exam.save()      
         return redirect('xam')
-
-def add_question(request,pk):
+@login_required()
+def add_question(request,id):
     if request.method == "POST":
-        xam = Exam.objects.get(pk=id)
         question  = request.POST.get("question")
         option1 = request.POST.get("option1")
         option2 = request.POST.get("option2")
         option3 = request.POST.get("option3")
         option4 = request.POST.get("option4")
         answer = request.POST.get("answer")
+        exam = request.POST.get("exam")
         q = Question()
         q.question = question
         q.option1 = option1
@@ -72,12 +77,10 @@ def add_question(request,pk):
         q.option3 = option3
         q.option4 = option4
         q.answer = answer
-        q.exam = xam
+        q.exam = Exam.objects.get(id=int(exam))
         q.save()
-        return render(request,'addquestion.html')
-    else:
-        return HttpResponse('failed')
-
+        return redirect('xam')
+ 
 class QuestionViewset(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerialzer
