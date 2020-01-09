@@ -80,7 +80,7 @@ def add_question(request,id):
         q.exam = Exam.objects.get(id=int(exam))
         q.save()
         return redirect('xam')
- 
+
 class QuestionViewset(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerialzer

@@ -31,40 +31,46 @@
     </div>
 </nav>
 {% for i in con %}
-<div style=" margin-top:10px; margin-left:10px; margin-right:10px;border:1px solid #555;">
- 
-    <div style="font-size:20px; padding:5px"> 
-           <p>{{i.question}}</p> 
+
+<div class="row" id="question-display">
+    <span class="row"></span>
+        <div class="panel panel-default col-sm-8 col-sm-offset-2">
+            <div class="panel-heading h2 question-place">
+                <span class="q">{{i.question}}</span>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item h3"><input type="radio" id="op" name='a' value='{{i.otion1}}'> {{i.option1}}</li>
+                    <li class="list-group-item h3"><input type="radio" id="op" name='a' value='{{i.otion2}}'>  {{i.option2}}</li>
+                    <li class="list-group-item h3"><input type="radio" id="op" name='a' value='{{i.otion3}}'> {{i.option3}}</span></li>
+                    <li class="list-group-item h3"><input type="radio" id="op" name='a'value='{{i.otion4}}'> {{i.option4}}</li>
+                    <input type="hidden" id="option-answer" value="{{i.answer}}" />
+                </ul>
+            </div>
         </div>
-    <div>
-        <div style="padding:5px;">
-           <span style="padding-right:30px;"><input id="option1" type="radio" name='a' value="{{i.option1}}"> {{i.option1}}</span> 
-           <span style="padding-left:30px;"> <input id="option2"  type="radio" name='a' value="{{i.option2}}" > {{i.option2}}</span> 
-        </div>
-       <div style="padding: 5px;">
-        <span style="padding-right:30px;"><input id="option3"  type="radio" name='a' value="{{i.option3}}"> {{i.option3}}</span>
-        <span style="padding-left:30px;"> <input id="option4"  type="radio" name='a' value="{{i.option4}}"> {{i.option4}}</span>
-       </div>  
-       <input type="hidden" id="answer"  value="{{i.answer}}">
     </div>
-</div>
 {% endfor %}
-<div style="padding-top:5px;"><button type="submit" onclick=result() class="btn btn-primary">Check Your Score</button> </div>
+<button onclick=result() class="btn btn-default" id="verify"><span class="before">Get Score</span></span></button>
 <style>
     body{
         
         counter-reset: my-sec-counter;
     }
       
-      p::before {
+      .q::before {
         counter-increment: my-sec-counter;
         content: counter(my-sec-counter) ".";
       }
 </style>
 </body>
 <script>  
-    function result(){
-        
+   function result(){
+    var el=document.getElementById('op');
+    for(var i=0;i<a.length;i++){
+        if(el[i].checked==true){
+            alert('hi')
+        }
     }
+   }
 </script>
 </html>
