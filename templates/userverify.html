@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+{% block content%}
+{% include 'navbar.html'%}
+
+<div style='height:20px;'></div>
+<div class='container'>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Username</th>
+                <th scope="col">Verification</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in context%}
+            {% if i.username not in 'admin'%}
+            <tr>
+                <th>{{i.id}}</th>
+                <td>{{i.username}}</td>
+                {% if i.is_active is False %}
+                <td><a href="{% url 'approve' i.id%}">Approve</a></td>
+                {% else %}
+                <td style="text-decoration: line-through;">Approved</td>
+                {% endif %}
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

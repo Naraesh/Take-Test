@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% block content%}
+{% include 'navbar.html'%}
+<div style='height:20px'></div>
+<div class="container">
+{% for q in con%}
+    <div style='height:5px'></div>
+    <div class='question'>
+        <h4>{{q.id}}. {{q.question}}</h4>
+    </div>
+    <div>
+        <ol>
+            <li>{{q.option1}}</li>
+            <li>{{q.option2}}</li>
+            <li>{{q.option3}}</li>
+            <li>{{q.option4}}</li>
+        </ol>
+    </div>
+    <div class='answer'>
+        <b>Answer: {{q.answer}}</b>
+    </div>
+{% endfor %}
+
+    {% if con%}
+        {% else %}
+            No Question Found...
+    {%endif%}
+</div>
+{% endblock %}

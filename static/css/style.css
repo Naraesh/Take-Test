@@ -1,32 +1,14 @@
-        nav{
-            height : 50px;
-            padding:10px;
-        }
-        #load_signup{
-            position: absolute;
-            left:50%;
-            top:50%;
-        }
-        
-        .logo{
-            color: white;
-            padding-left: 10%;
-            font-size: large;
-        }
-        #login_button{
-            background-color: white;
-            color: blue;
-        }
-        #login_form{
-            padding-right: 10px;
-        }
-        #register-success{
-            font-size: larger;
-        }
-        #signup-text{
-            font-size:30px;
-            font-style: italic;
-        }
-        #bottom{
-            text-align:center;
-        }
+.cl{
+    background:#f1f1bc ;
+    
+}
+.cl a{
+    color:#172df3!important;
+    font-weight: bold;
+}
+.cl a:hover{
+    color:#f3177e!important;
+}
+.li{
+    list-style: none;
+}

@@ -1,0 +1,146 @@
+{% extends 'base.html'%}
+{% block content%}
+{% include 'navbar.html'%}
+<div class="container">
+{% for i in con%}
+<button id='exam_list' value="{{i.id}}">{{i.name}}</button>
+{% endfor %}
+</div>
+<div class="container" style='display:none'  id="question-display">
+    <span class="row"></span>
+        <div class="panel panel-default col-sm-8 col-sm-offset-2">
+            <div class="panel-heading h2 question-place">
+
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <a href="#" class="select-option"><li class="list-group-item h3"><span class="glyphicon glyphicon-unchecked col-sm-offset-1"></span><span class="col-sm-offset-2 option option1-place"></span></li></a>
+                    <a href="#" class="select-option"><li class="list-group-item h3"><span class="glyphicon glyphicon-unchecked col-sm-offset-1"></span><span class="col-sm-offset-2 option option2-place"></span></li></a>
+                    <a href="#" class="select-option"><li class="list-group-item h3"><span class="glyphicon glyphicon-unchecked col-sm-offset-1"></span><span class="col-sm-offset-2 option option3-place"></span></li></a>
+                    <a href="#" class="select-option"><li class="list-group-item h3"><span class="glyphicon glyphicon-unchecked col-sm-offset-1"></span><span class="col-sm-offset-2 option option4-place"></span></li></a>
+                    <input type="hidden" id="option-answer" value="" />
+                </ul>
+                <button id="after" class="btn btn-default pull-right"><span class="glyphicon glyphicon-forward "></span>Next question</button>
+                <!-- <button class="btn btn-default pull-right" id="after"><span class="before">Skip</span><span style="display:none" class="glyphicon glyphicon-forward "></span></button> -->
+            </div>		
+        </div>
+    </div>
+    <div style="display:none" class="jumbotron text-center" id="score">
+        <p>Your Score is <span id="count"></span> out of <span id="total"></span></p>
+        <button class="btn btn-default exit-btn">exit</button>
+    </div>
+<div id="no-questions" class="jumbotron text-center" style="display:none">
+    <p>Sorry! currently there are no questions in this exam</p>
+    <button class="btn btn-default exit-btn">exit</button>
+</div>
+
+<script>
+
+
+    var template=(id,name)=>{
+            return "<div class='row exam-panel'>"+
+                    "<a href='#'><div class='panel panel-default col-sm-4 col-sm-offset-4'>"+
+                    "<div class='exam_template panel-body' id="+id+">"+
+                    name+
+                    "</div></div></a></div>";
+        }
+
+        $.ajax({
+            url:"/student/api/exam/",
+            success:function(data){
+            for(i=0;i<data.length;i++)
+            {
+            $("#exam_list").append(tmplate(data[i].id,data[i].name));
+            }
+        }
+    });
+
+    var show_result=(count,total)=>{
+        $("#count").text(count);
+        $("#total").text(total);
+        $("#score").slideDown();
+    }
+
+    $(".exit-btn").click(()=>{
+        window.location.reload();
+    });
+
+    var test=(data,count)=>{
+        j = 1;
+        $(".select-option").click(function(){
+			$(".glyphicon-ok").attr("class","glyphicon glyphicon-unchecked col-sm-offset-1");
+			$(this).find(".glyphicon").attr("class","glyphicon glyphicon-ok col-sm-offset-1");
+            $("#option-answer").val($(this).find(".option").text());
+		});
+      
+        $("#after").click(()=>{
+            if($("#option-answer").val() == data[j-1].answer){
+                count++;
+            }
+            if(j >= data.length)
+            {
+                $(".after").hide();
+                $(".after-ok").hide();
+                $(".after-not-ok").hide();
+                $(".glyphicon-ok").attr("class","glyphicon glyphicon-unchecked col-sm-offset-1");
+                $(".before").show();
+                $("#question-display").hide();
+                show_result(count,data.length);
+                return;
+            }
+            $(".question-place").html(data[j].question);
+            $(".option1-place").html(data[j].option1);
+            $(".option2-place").html(data[j].option2);
+            $(".option3-place").html(data[j].option3);
+            $(".option4-place").html(data[j].option4);
+            $(".after").hide();
+            $(".after-ok").hide();
+            $(".after-not-ok").hide();
+            $(".glyphicon-ok").attr("class","glyphicon glyphicon-unchecked col-sm-offset-1");
+            $(".before").show();
+            j++;
+        });
+    }
+
+
+    $("#exam_list").on('click',()=>{
+        $("#exam_list").hide();
+        exam_id = $(this).find(".exam_template").attr('id');
+        $.ajax({
+            method:'GET',
+            url:'/student/api/question/',
+            success:(response)=>{
+                var i;
+                data=[]
+                for(i=0;i<response.length;i++){
+                    data.push(response[i]);
+                }
+                i=0;
+                data2 = data;
+                if (data2.length == 0 ) {
+                    $("#no-questions").show();
+                    return;
+                }
+                else{
+                    $("#question-display").show();
+                //alert(questions);
+                $(".question-place").html(data2[i].question);
+                $(".option1-place").html(data2[i].option1);
+                $(".option2-place").html(data2[i].option2);
+                $(".option3-place").html(data2[i].option3);
+                $(".option4-place").html(data2[i].option4);
+               // $('#option-answer').val(data2[i].answer)
+                test(data2,0);
+                }
+                console.log(data2);
+            }
+
+        });
+        
+});
+    
+
+
+
+</script>
+{% endblock %}
